@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import '@/styles/globals.css';
 import { fonts } from '@/utils/fonts';
+import Navbar from '@/components/navbar';
 
 export const metadata: Metadata = {
   title: 'CaseCobra',
@@ -14,7 +15,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={fonts.inter}>{children}</body>
+      <body className={fonts.inter}>
+        <Navbar />
+        {children}
+      </body>
     </html>
   );
 }
