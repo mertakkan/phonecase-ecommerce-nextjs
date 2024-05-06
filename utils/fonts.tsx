@@ -1,6 +1,8 @@
-import { Inter, Montserrat } from 'next/font/google';
+import { Inter, Montserrat, Recursive } from 'next/font/google';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
+
+const recursive = Recursive({ subsets: ['latin'] });
 
 const montserrat = Montserrat({
   weight: '600',
@@ -11,4 +13,5 @@ const montserrat = Montserrat({
 export const fonts = {
   montserrat: montserrat.className,
   inter: inter.className,
+  recursive: recursive.className,
 };

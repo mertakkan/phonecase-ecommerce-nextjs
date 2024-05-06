@@ -21,7 +21,7 @@ export default function LoginPage() {
 
   return (
     <div className="flex justify-center items-center h-screen">
-      <div className="p-10 shadow-md">
+      <div className="p-10 shadow-md rounded-xl">
         <div className="flex flex-col w-96 justify-center">
           <form className="space-y-4">
             <div>
