@@ -1,11 +1,10 @@
-import type { Metadata } from 'next';
+import Footer from '@/components/footer';
+import Navbar from '@/components/navbar';
+import Providers from '@/components/providers';
+import { Toaster } from '@/components/ui/toaster';
+import { constructMetadata } from '@/lib/utils';
 import '@/styles/globals.css';
 import { fonts } from '@/utils/fonts';
-import Navbar from '@/components/navbar';
-import Footer from '@/components/footer';
-import { Toaster } from '@/components/ui/toaster';
-import Providers from '@/components/providers';
-import { constructMetadata } from '@/lib/utils';
 
 export const metadata = constructMetadata();
 
