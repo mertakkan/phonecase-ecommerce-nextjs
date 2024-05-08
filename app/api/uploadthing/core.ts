@@ -1,9 +1,11 @@
 import { createUploadthing, type FileRouter } from 'uploadthing/next';
 import { z } from 'zod';
 import sharp from 'sharp';
-import { db } from '@/db';
+import { createClient } from '@/utils/supabase/client';
 
 const f = createUploadthing();
+
+const supabase = createClient();
 
 export const ourFileRouter = {
   imageUploader: f({ image: { maxFileSize: '4MB' } })
@@ -21,24 +23,32 @@ export const ourFileRouter = {
       const { width, height } = imgMetadata;
 
       if (!configId) {
-        const configuration = await db.configuration.create({
-          data: {
-            imageUrl: file.url,
+        const { data: configuration, error } = await supabase
+          .from('configuration')
+          .insert({
+            imageurl: file.url,
             height: height || 500,
             width: width || 500,
-          },
-        });
+          })
+          .select('id')
+          .single();
+
+        if (error) {
+          throw new Error('Failed to create configuration');
+        }
 
         return { configId: configuration.id };
       } else {
-        const updatedConfiguration = await db.configuration.update({
-          where: {
-            id: configId,
-          },
-          data: {
-            croppedImageUrl: file.url,
-          },
-        });
+        const { data: updatedConfiguration, error } = await supabase
+          .from('configuration')
+          .update({ croppedimageurl: file.url })
+          .eq('id', configId)
+          .select('id')
+          .single();
+
+        if (error) {
+          throw new Error('Failed to update configuration');
+        }
 
         return { configId: updatedConfiguration.id };
       }

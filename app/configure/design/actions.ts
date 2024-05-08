@@ -1,12 +1,19 @@
 'use server';
+import { createClient } from '@/utils/supabase/server';
 
-import { db } from '@/db';
-import {
-  CaseColor,
-  CaseFinish,
-  CaseMaterial,
-  PhoneModel,
-} from '@prisma/client';
+const supabase = createClient();
+
+export type OrderStatus = 'fulfilled' | 'shipped' | 'awaiting_shipment';
+export type PhoneModel =
+  | 'iphonex'
+  | 'iphone11'
+  | 'iphone12'
+  | 'iphone13'
+  | 'iphone14'
+  | 'iphone15';
+export type CaseMaterial = 'silicone' | 'polycarbonate';
+export type CaseFinish = 'smooth' | 'textured';
+export type CaseColor = 'black' | 'blue' | 'rose';
 
 export type SaveConfigArgs = {
   color: CaseColor;
@@ -23,8 +30,12 @@ export async function saveConfig({
   model,
   configId,
 }: SaveConfigArgs) {
-  await db.configuration.update({
-    where: { id: configId },
-    data: { color, finish, material, model },
-  });
+  const { error } = await supabase
+    .from('configuration')
+    .update({ color, finish, material, model })
+    .eq('id', configId);
+
+  if (error) {
+    throw new Error('Failed to save configuration');
+  }
 }
