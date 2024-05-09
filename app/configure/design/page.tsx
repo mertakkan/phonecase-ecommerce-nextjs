@@ -7,6 +7,7 @@ interface PageProps {
     [key: string]: string | string[] | undefined;
   };
 }
+
 const supabase = createClient();
 
 const Page = async ({ searchParams }: PageProps) => {
@@ -27,13 +28,13 @@ const Page = async ({ searchParams }: PageProps) => {
     return notFound();
   }
 
-  const { imageUrl, width, height } = configuration;
+  const { imageurl, width, height } = configuration;
 
   return (
     <DesignConfigurator
       configId={configuration.id}
       imageDimensions={{ width, height }}
-      imageUrl={imageUrl}
+      imageUrl={imageurl}
     />
   );
 };
