@@ -9,10 +9,10 @@ import { Rnd } from 'react-rnd';
 import { RadioGroup } from '@headlessui/react';
 import { useRef, useState } from 'react';
 import {
-  COLORS,
   FINISHES,
   MATERIALS,
   MODELS,
+  COLORS,
 } from '@/validators/option-validator';
 import { Label } from '@/components/ui/label';
 import {
@@ -251,7 +251,7 @@ const DesignConfigurator = ({
                         value={color}
                         className={({ active, checked }) =>
                           cn(
-                            'relative -m-0.5 flex cursor-pointer items-center justify-center rounded-full p-0.5 active:ring-0 focus:ring-0 active:outline-none focus:outline-none border-2 border-transparent',
+                            `relative -m-0.5 flex cursor-pointer items-center justify-center rounded-full p-0.5 active:ring-0 focus:ring-0 active:outline-none focus:outline-none border-2 border-transparent`,
                             {
                               [`border-${color.tw}`]: active || checked,
                             }
@@ -260,8 +260,12 @@ const DesignConfigurator = ({
                       >
                         <span
                           className={cn(
-                            `bg-${color.tw}`,
-                            'h-8 w-8 rounded-full border border-black border-opacity-10'
+                            `h-8 w-8 rounded-full border border-black border-opacity-10`,
+                            {
+                              'bg-zinc-900': color.value === 'black',
+                              'bg-blue-950': color.value === 'blue',
+                              'bg-rose-950': color.value === 'rose',
+                            }
                           )}
                         />
                       </RadioGroup.Option>
