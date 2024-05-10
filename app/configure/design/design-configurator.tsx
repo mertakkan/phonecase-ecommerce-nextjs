@@ -251,9 +251,15 @@ const DesignConfigurator = ({
                         value={color}
                         className={({ active, checked }) =>
                           cn(
-                            `relative -m-0.5 flex cursor-pointer items-center justify-center rounded-full p-0.5 active:ring-0 focus:ring-0 active:outline-none focus:outline-none border-2 border-transparent`,
+                            'relative -m-0.5 flex cursor-pointer items-center justify-center rounded-full p-0.5 active:ring-0 focus:ring-0 active:outline-none focus:outline-none border-2',
                             {
-                              [`border-${color.tw}`]: active || checked,
+                              'border-zinc-900':
+                                (active || checked) && color.value === 'black',
+                              'border-blue-950':
+                                (active || checked) && color.value === 'blue',
+                              'border-rose-950':
+                                (active || checked) && color.value === 'rose',
+                              'border-transparent': !(active || checked),
                             }
                           )
                         }
