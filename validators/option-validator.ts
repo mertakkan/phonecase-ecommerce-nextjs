@@ -9,7 +9,6 @@ export const COLORS = [
     label: 'Black',
     value: 'black',
     tw: 'zinc-900',
-    // fullcolor: 'bg-zinc-900',
   },
   {
     label: 'Blue',
