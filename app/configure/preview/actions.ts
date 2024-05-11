@@ -93,16 +93,16 @@ export const createCheckoutSession = async ({
   });
 
   const stripeSession = await stripe.checkout.sessions.create({
-    success_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/thank-you?orderId=${
-      order!.id
-    }`,
+    success_url: order
+      ? `${process.env.NEXT_PUBLIC_SERVER_URL}/thank-you?orderId=${order.id}`
+      : `${process.env.NEXT_PUBLIC_SERVER_URL}/configure/preview?id=${configuration.id}`,
     cancel_url: `${process.env.NEXT_PUBLIC_SERVER_URL}/configure/preview?id=${configuration.id}`,
     payment_method_types: ['card'],
     mode: 'payment',
     shipping_address_collection: { allowed_countries: ['DE', 'US'] },
     metadata: {
       userid: user.id,
-      orderid: order!.id,
+      orderid: order?.id || '',
     },
     line_items: [{ price: product.default_price as string, quantity: 1 }],
   });

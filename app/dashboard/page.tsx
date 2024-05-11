@@ -88,8 +88,13 @@ const Page = async () => {
     .single();
 
   if (lastWeekSumError) {
-    console.error('Error calculating last week sum:', lastWeekSumError);
-    throw lastWeekSumError;
+    if (lastWeekSumError.code === 'PGRST116') {
+      // No orders found within the last week
+      console.log('no orders');
+    } else {
+      console.error('Error calculating last week sum:', lastWeekSumError);
+      throw lastWeekSumError;
+    }
   }
 
   const { data: lastMonthSum, error: lastMonthSumError } = await supabase
@@ -103,8 +108,13 @@ const Page = async () => {
     .single();
 
   if (lastMonthSumError) {
-    console.error('Error calculating last month sum:', lastMonthSumError);
-    throw lastMonthSumError;
+    if (lastMonthSumError.code === 'PGRST116') {
+      // No orders found within the last month
+      console.log('no orders');
+    } else {
+      console.error('Error calculating last month sum:', lastMonthSumError);
+      throw lastMonthSumError;
+    }
   }
 
   const WEEKLY_GOAL = 500;
