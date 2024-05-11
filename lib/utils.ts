@@ -35,6 +35,6 @@ export function constructMetadata({
       images: [{ url: image }],
     },
     icons,
-    metadataBase: new URL('https://casecobra.vercel.app/'),
+    metadataBase: new URL('https://casecobra-nextjs-akkan.vercel.app/'),
   };
 }

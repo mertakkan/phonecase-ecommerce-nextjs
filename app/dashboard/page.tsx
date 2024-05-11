@@ -20,12 +20,7 @@ import { formatPrice } from '@/lib/utils';
 import { notFound } from 'next/navigation';
 import StatusDropdown from './status-dropdown';
 import { createClient } from '@/utils/supabase/server';
-
-export enum OrderStatus {
-  AWAITING_SHIPMENT = 'awaiting_shipment',
-  FULFILLED = 'fulfilled',
-  SHIPPED = 'shipped',
-}
+import { OrderStatus } from '@/types/orderStatus';
 
 interface Order {
   id: string;
